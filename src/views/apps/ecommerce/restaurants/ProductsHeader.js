@@ -11,6 +11,8 @@ import {
   Button,
   ButtonGroup
 } from 'reactstrap'
+import { Link } from "react-router-dom"
+import img1 from '../deliveryboy/genie.png'
 
 const ProductsHeader = props => {
   // ** Props
@@ -21,6 +23,10 @@ const ProductsHeader = props => {
     'price-desc': 'Highest',
     'price-asc': 'Lowest',
     featured: 'Featured'
+  }
+  const mystyle = {   
+    width: "45px",
+    height: "45px"
   }
 
   return (
@@ -37,7 +43,7 @@ const ProductsHeader = props => {
               <span className='search-results'>{store.totalRestaurants} Results Found</span>
             </div>
             <div className='view-options d-flex'>
-              <UncontrolledButtonDropdown className='dropdown-sort'>
+              {/*<UncontrolledButtonDropdown className='dropdown-sort'>
                 <DropdownToggle className='text-capitalize mr-1' color='primary' outline caret>
                   {sortToggleText[store.params.sortBy]}
                 </DropdownToggle>
@@ -61,7 +67,13 @@ const ProductsHeader = props => {
                     Highest
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledButtonDropdown>
+                </UncontrolledButtonDropdown> */}
+               <Link to = '/apps/ecommerce/Genie'>
+                <img src={img1} style={mystyle} alt="no image" className="img"/>
+                </Link>
+                {/*<Link to = '/apps/ecommerce/Genie'>
+                <Button   id='pick-drop' className='text-capitalize mr-1' color='primary' variant="primary">Genie</Button> 
+                </Link>
               <ButtonGroup className='btn-group-toggle'>
                 <Button
                   tag='label'
@@ -85,7 +97,7 @@ const ProductsHeader = props => {
                 >
                   <List size={18} />
                 </Button>
-              </ButtonGroup>
+              </ButtonGroup>*/}
             </div>
           </div>
         </Col>

@@ -1,0 +1,28 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+#nameVertical{
+  height: 50px;
+  width: 350px;
+  margin-left: 20px ;
+  background-color: #FBFCFC;
+ 
+}
+#name{
+  height: 50px;
+  width: 310px;
+  margin-left: 20px ;
+  background-color: #FBFCFC;
+ 
+}
+.custom-select{
+  width: 350px;
+  margin-left: 20px ;
+  background-color: #FBFCFC;
+  
+}
+#card{
+  height: 550px;
+  width: 500px;
+  border-color: #142F2F ;
+  
+}

@@ -1,90 +1,137 @@
-import { Fragment } from 'react'
-import Select from 'react-select'
-import { ArrowLeft, ArrowRight } from 'react-feather'
-import { selectThemeColors } from '@utils'
-import { Label, FormGroup, Row, Col, Form, Input, Button } from 'reactstrap'
+import axios from "axios"
+import { useEffect, useState, Fragment } from "react"
+import { Label, FormGroup, Row,  Col, Input, Form, Button, Card,
+  CardHeader,
+  CardTitle,
+  CardBody} from 'reactstrap'
 
-import '@styles/react/libs/react-select/_react-select.scss'
+import { useSelector } from 'react-redux'
+import GlobalVariable from "../../../../path/global"
+    const baseApiUrl = GlobalVariable.BASE_API_URL
 
-const PersonalInfo = ({ stepper, type }) => {
-  const countryOptions = [
-    { value: 'UK', label: 'UK' },
-    { value: 'USA', label: 'USA' },
-    { value: 'Spain', label: 'Spain' },
-    { value: 'France', label: 'France' },
-    { value: 'Italy', label: 'Italy' },
-    { value: 'Australia', label: 'Australia' }
-  ]
 
-  const languageOptions = [
-    { value: 'English', label: 'English' },
-    { value: 'French', label: 'French' },
-    { value: 'Spanish', label: 'Spanish' },
-    { value: 'Italian', label: 'Italian' },
-    { value: 'Japanese', label: 'Japanese' }
-  ]
+const PersonalInfo = () => {
+  const userData = useSelector(state => state.auth.userData)
 
-  return (
-    <Fragment>
-      <div className='content-header'>
-        <h5 className='mb-0'>Personal Info</h5>
-        <small>Enter Your Personal Info.</small>
-      </div>
-      <Form onSubmit={e => e.preventDefault()}>
-        <Row>
-          <FormGroup tag={Col} md='6'>
-            <Label className='form-label' for={`first-name-${type}`}>
-              First Name
-            </Label>
-            <Input type='text' name='first-name' id={`first-name-${type}`} placeholder='John' />
-          </FormGroup>
-          <FormGroup tag={Col} md='6'>
-            <Label className='form-label' for={`last-name-${type}`}>
-              Last Name
-            </Label>
-            <Input type='text' name='last-name' id={`last-name-${type}`} placeholder='Doe' />
-          </FormGroup>
-        </Row>
-        <Row>
-          <FormGroup tag={Col} md='6'>
-            <Label className='form-label' for={`country-${type}`}>
-              Country
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              isClearable={false}
-              id={`country-${type}`}
-              className='react-select'
-              classNamePrefix='select'
-              options={countryOptions}
-              defaultValue={countryOptions[0]}
-            />
-          </FormGroup>
-          <FormGroup tag={Col} md='6'>
-            <Label className='form-label' for={`language-${type}`}>
-              Language
-            </Label>
-            <Select
-              isMulti
-              isClearable={false}
-              theme={selectThemeColors}
-              id={`language-${type}`}
-              options={languageOptions}
-              className='react-select'
-              classNamePrefix='select'
-            />
-          </FormGroup>
-        </Row>
-        <div className='d-flex justify-content-between'>
-        
-          <Button.Ripple color='primary' className='btn-next' onClick={() => stepper.next()}>
-            <span className='align-middle d-sm-inline-block d-none'>Next</span>
-            <ArrowRight size={14} className='align-middle ml-sm-25 ml-0'></ArrowRight>
-          </Button.Ripple>
-        </div>
-      </Form>
-    </Fragment>
-  )
+  const [UserName, setUserName] = useState(userData.userName)
+  const [Email, setEmail] = useState(userData.email)
+  const [PhoneNumber, setPhoneNumber] = useState(userData.phoneNumber)
+  const [city, setCity] = useState(userData.address)
+  const [message, setMessage] = useState("")
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    const object = {userId: userData.userId, userName: UserName, email: Email, phoneNumber: PhoneNumber, address: city, status: 'active', restId: userData.restId, firstName: userData.firstName, lastName: userData.lastName, password: userData.password, sysTime: userData.sysTime, role: userData.role}
+    const authAxios = axios.create({
+        baseURL: baseApiUrl
+      })
+    authAxios.put('users/edit', object).then(response => { 
+        console.log(response)
+        setMessage("successful")  
+    }).catch((err) => {
+        console.log(err)
+      })
+      
+    useEffect(() => {
+      setMessage("")
+    }, [UserName])
+
 }
+    return (
+    // <Form onSubmit={submitHandler}>
+    //         <Row className='justify-content-between align-items-center'>
+    //             <Col md={6}>
+    //               <FormGroup>
+    //                 <Label >UserName</Label>
+    //                 <Input type='text' value={userData.userName}
+    //                  onChange = {e => setUserName(e.target.value)} />
+    //               </FormGroup>
+    //             </Col>
+    //             <Col md={6}>
+    //               <FormGroup>
+    //                 <Label >Email</Label>
+    //                 <Input type='text' value={userData.email} 
+    //                 onChange = {e => setEmail(e.target.value)}  />
+    //               </FormGroup>
+    //             </Col>
+    //             <Col md={6}>
+    //               <FormGroup>
+    //                 <Label >PhoneNumber</Label>
+    //                 <Input type='number'  value={userData.phoneNumber} 
+    //                 onChange = {e => setPhoneNumber(e.target.value)}/>
+    //               </FormGroup>
+    //             </Col>
+    //             <Col md={6}>
+    //               <FormGroup>
+    //                 <Label >City</Label>
+    //                 <Input type='text'  placeholder={userData.address} 
+    //                 onChange = {e => setCity(e.target.value)} />
+    //               </FormGroup>
+    //             </Col>
+    //             <Col md={6}>
+    //               <FormGroup>
+    //               <Button.Ripple className='btn-icon btn btn-success' >
+    //               <span className='align-middle ml-sm-25 ml-0' type = 'submit'>Update</span>
+    //                </Button.Ripple>
+    //               </FormGroup>
+    //             </Col>
+    //           </Row>
+    //   </Form>
+    <Card>
+    <CardHeader>
+      <CardTitle tag='h4'>Personal</CardTitle>
+    </CardHeader>
+    
+    {message === "successful" ? (
+            <b style={{ color: "green" }}> &nbsp;&nbsp; Updated Successfully</b>
+          ) : (
+            <div></div>
+          )}
 
+    <CardBody>
+      <Form onSubmit={submitHandler}>
+        <Row>
+          <Col sm='12'>
+            <FormGroup>
+              <Label>User Name</Label>
+              <Input type='text' defaultValue={userData.userName}
+                      onChange = {e => setUserName(e.target.value)} />
+            </FormGroup>
+          </Col>
+          <Col sm='12'>
+            <FormGroup>
+              <Label>Email</Label>
+              <Input type='text'  defaultValue={userData.email} 
+                     onChange = {e => setEmail(e.target.value)}  />
+            </FormGroup>
+          </Col>
+          <Col sm='12'>
+            <FormGroup>
+              <Label>Phone Number</Label>
+              <Input type='number'   defaultValue={userData.phoneNumber} 
+                     onChange = {e => setPhoneNumber(e.target.value)}/>
+            </FormGroup>
+          </Col>
+          <Col sm='12'>
+            <FormGroup>
+              <Label>City</Label>
+              <Input type='text'   defaultValue={userData.address} 
+                     onChange = {e => setCity(e.target.value)} />
+            </FormGroup>
+          </Col>
+          <Col sm='12'>
+            <FormGroup className='d-flex mb-0'>
+              <Button.Ripple className='mr-1' color='primary' type='submit'>
+                Update
+              </Button.Ripple>
+            
+            </FormGroup>
+          </Col>
+        </Row>
+      </Form>
+    </CardBody>
+  </Card>
+    )
+    
+}
 export default PersonalInfo

@@ -32,7 +32,7 @@ const LoginOuthGoogle = () => {
         <div>
             { showloginButton ? <GoogleLogin
                     clientId={clientId}
-                    buttonText="Sign In"
+                    buttonText="Continue with Google"
                     onSuccess={onLoginSuccess}
                     onFailure={onLoginFailure}
                     //cookiePolicy={'single_host_origin'}

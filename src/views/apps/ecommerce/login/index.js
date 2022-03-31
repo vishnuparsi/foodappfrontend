@@ -90,7 +90,7 @@ const submitHandler = (e) => {
                   <Button.Ripple tag={Link} to='/apps/ecommerce/Register' className='mr-1' color='success' type='submit'>
                     Register 
                   </Button.Ripple><br/><br/>
-                  <span>Sign in with google</span>
+                  <span></span>
                   <LoginOuthGoogle/>
                     </FormGroup>
                     </Col>

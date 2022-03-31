@@ -14,7 +14,7 @@ const IntlDropdown = () => {
 
   // ** Vars
   const langObj = {
-    en: 'English',
+   en: 'English',
     de: 'German',
     fr: 'French',
     pt: 'Portuguese'

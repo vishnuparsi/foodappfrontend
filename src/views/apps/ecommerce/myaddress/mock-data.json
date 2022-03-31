@@ -1,0 +1,11 @@
+[
+    {
+      "id":  1,
+      "fullName": "David John",
+      "address": "123-main street, lb nagar, Hyderabad",
+      "phoneNumber": "9234567267",
+      "landmark": "near apollo hospital",
+      "pincode": "517008",
+      "state": "Telangana"
+    }
+  ]

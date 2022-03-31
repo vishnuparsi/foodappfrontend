@@ -179,6 +179,32 @@ const AppRoutes = [
     component: lazy(() => import('../../views/apps/ecommerce/wishlist'))
   },
   {
+    path: '/apps/ecommerce/myaddress',  
+    className: 'ecommerce-application',  
+    component: lazy(() => import('../../views/apps/ecommerce/myaddress')) 
+  },
+  {
+    path: '/apps/ecommerce/pickupdrop',
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/pickupdrop'))
+  },
+  {
+    path: '/apps/ecommerce/checkout/steps/Payment',
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/checkout/steps/Payment'))
+  },
+  {
+    path: '/apps/ecommerce/googlemap',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/googlemap'))
+  },
+  {
+    path: '/apps/ecommerce/Genie',
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/Genie'))
+  },
+  {
     path: '/apps/ecommerce/product-detail',
     exact: true,
     className: 'ecommerce-application',
