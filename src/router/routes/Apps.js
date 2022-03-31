@@ -167,12 +167,12 @@ const AppRoutes = [
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/Register'))
   },
-  // {
-  //   path: '/apps/ecommerce/paymentSucess',
-  //   exact: true,
-  //   className: 'ecommerce-application',
-  //   component: lazy(() => import('../../views/apps/ecommerce/paymentSucess'))
-  // },
+  {
+    path: '/apps/ecommerce/paymentSucess',
+    exact: true,
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/paymentSucess'))
+  },
   {
     path: '/apps/ecommerce/wishlist',
     className: 'ecommerce-application',

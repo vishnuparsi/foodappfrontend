@@ -1,7 +1,6 @@
 // ** React Imports
 import { useEffect, Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
-
 // ** Custom Components
 import NumberInput from '@components/number-input'
 
@@ -12,7 +11,7 @@ import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem, Media, Badge, But
 
 // ** Store & Actions
 import { useDispatch, useSelector } from 'react-redux'
-import { getCartItems, deleteCartItem, getProduct } from '@src/views/apps/ecommerce/store/actions'
+import { getCartItems, deleteCartItem} from '@src/views/apps/ecommerce/store/actions'
 
 const CartDropdown = () => {
   // ** State
@@ -22,7 +21,6 @@ const CartDropdown = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.ecommerce)
 
-  // ** ComponentDidMount
   useEffect(() => {
     dispatch(getCartItems())
   }, [])
@@ -31,15 +29,23 @@ const CartDropdown = () => {
   const toggle = () => setDropdownOpen(prevState => !prevState)
 
   // ** Function to call on Dropdown Item Click
-  const handleDropdownItemClick = id => {
-    dispatch(getProduct(id))
-    toggle()
-  }
+  const [total, setTotal] = useState(0)
+
+  useEffect(() => {
+    setTotal(store.cart.reduce((sum, item) => sum + (item.itemPrice * item.qty), 0))
+  }, [store.cart])
+  
+
+  const handleIncrement = (price) => {
+    setTotal(total + price)  
+  } 
+  const handleDecrement = (price) => {
+   setTotal(total - price)
+ } 
 
   // ** Loops through Cart Array to return Cart Items
   const renderCartItems = () => {
     if (store.cart.length) {
-      let total = 0
 
       return (
         <Fragment>
@@ -50,36 +56,41 @@ const CartDropdown = () => {
             className='scrollable-container media-list'
           >
             {store.cart.map(item => {
-              total += item.price
 
               return (
-                <Media key={item.id} className='align-items-center'>
-                  <img className='d-block rounded mr-1' src={item.image} alt={item.name} width='62' />
+                <Media key={item.itemId} className='align-items-center'>
+                  <img className='d-block rounded mr-1' src={require(`@src/assets/images/items/${item.itemId}.jpg`).default} alt={item.itemName} width='62' />
                   <Media body>
-                    <X size={14} className='cart-item-remove' onClick={() => dispatch(deleteCartItem(item.id))} />
+                    <X size={14} className='cart-item-remove' onClick={() => { 
+                      dispatch(deleteCartItem(item.itemId))
+                    }}/>
                     <div className='media-heading'>
                       <h6 className='cart-item-title'>
                         <Link
                           className='text-body'
                           to={`/apps/ecommerce/product/${item.slug}`}
-                          onClick={() => handleDropdownItemClick(item.id)}
+                          onClick={() => handleDropdownItemClick(item.itemId)}
                         >
-                          {item.name}
+                          {item.itemName}
                         </Link>
                       </h6>
-                      <small className='cart-item-by'>by {item.brand}</small>
+                      {/*<small className='cart-item-by'>by {item.brand}</small>*/}
                     </div>
                     <div className='cart-item-qty'>
-                      <NumberInput
+                    <NumberInput
                         min={1}
                         max={10}
                         size='sm'
                         className='p-0'
                         value={item.qty}
+                        id = {item.itemId}
                         style={{ width: '7rem', height: '2.15rem' }}
+                        price = {item.itemPrice}
+                        onIncrement = {handleIncrement}
+                        onDecrement = {handleDecrement}
                       />
                     </div>
-                    <h5 className='cart-item-price'>${item.price}</h5>
+                    <h5 className='cart-item-price'>${item.itemPrice * item.qty}</h5>
                   </Media>
                 </Media>
               )
@@ -90,7 +101,7 @@ const CartDropdown = () => {
               <h6 className='font-weight-bolder mb-0'>Total:</h6>
               <h6 className='text-primary font-weight-bolder mb-0'>${Number(total.toFixed(2))}</h6>
             </div>
-            <Button.Ripple tag={Link} to='/apps/ecommerce/checkout' color='primary' block onClick={toggle}>
+            <Button.Ripple tag={Link} to='/apps/ecommerce/userLogin' color='primary' block onClick={toggle}>
               Checkout
             </Button.Ripple>
           </li>
@@ -120,7 +131,7 @@ const CartDropdown = () => {
             </Badge>
           </DropdownItem>
         </li>
-        {renderCartItems()}
+       {renderCartItems()} 
       </DropdownMenu>
     </Dropdown>
   )
