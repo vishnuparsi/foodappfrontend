@@ -1,14 +1,13 @@
 import mock from '../mock'
 /* eslint-disable */
 import { paginateArray, sortCompare, randomDate, getRandomInt } from '../utils'
-import {store} from '../../redux/storeConfig/store'
 
 const nextDay = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 const nextWeek = new Date(nextDay.getTime() + 7 * 24 * 60 * 60 * 1000)
 
 const data = {
   products: [
-   {
+    {
       id: 1,
       name: 'VicTsing Wireless Mouse,',
       slug: '3-year-unlimited-cloud-storage-service-activation-card-other-1',
@@ -280,14 +279,17 @@ const data = {
     },
     {
       id: 23,
-      name: 'Starters',
+      name: 'Apple - MacBook Air® (Latest Model) - 13.3" Display - Silver',
       slug: 'apple-mac-book-air-latest-model-13-3-display-silver-23',
-      brand: 'Paneer',
-      price: 199.99,
-      image: require('@src/assets/images/items/8.jpg').default,
+      brand: 'Apple',
+      price: 999.99,
+      image: require('@src/assets/images/pages/eCommerce/5.png').default,
       hasFreeShipping: false,
       rating: 4,
-      description: `Paneer Fry`
+      description: `MacBook Air is a thin, lightweight laptop from Apple. MacBook Air features up to 8GB of memory, a
+    fifth-generation Intel Core processor, Thunderbolt 2, great built-in apps, and all-day battery life.1 Its thin,
+    light, and durable enough to take everywhere you go-and powerful enough to do everything once you get there,
+    better.`
     },
     {
       id: 24,
@@ -320,14 +322,17 @@ const data = {
     },
     {
       id: 26,
-      name: 'Biryani',
+      name: 'Apple iPhone 11 (64GB, Black)',
       slug: 'apple-i-phone-11-64-gb-black-26',
-      brand: 'Biryani',
-      price: 299.99,
-      image: require('@src/assets/images/items/54.jpg').default,
+      brand: 'Apple',
+      price: 669.99,
+      image: require('@src/assets/images/pages/eCommerce/2.png').default,
       hasFreeShipping: true,
       rating: 5,
-      description: `Paneer Biryani`
+      description: `The Apple iPhone 11 is a great smartphone, which was loaded with a lot of quality features. It comes with a
+    waterproof and dustproof body which is the key attraction of the device. The excellent set of cameras offer
+    excellent images as well as capable of recording crisp videos. However, expandable storage and a fingerprint
+    scanner would have made it a perfect option to go for around this price range.`
     },
     {
       id: 27,
@@ -349,7 +354,13 @@ const data = {
     { id: 1, productId: 26 },
     { id: 2, productId: 23 }
   ],
-  userCart: []
+  userCart: [
+    { id: 1, productId: 27, qty: 1 },
+    { id: 2, productId: 21, qty: 1 },
+    { id: 3, productId: 26, qty: 1 },
+    { id: 4, productId: 25, qty: 1 },
+    { id: 5, productId: 23, qty: 1 }
+  ]
 }
 /* eslint-enable */
 
@@ -442,18 +453,16 @@ mock.onGet('/apps/ecommerce/wishlist').reply(() => {
 // ------------------------------------------------
 // GET: Return Cart Products
 // ------------------------------------------------
-
 mock.onGet('/apps/ecommerce/cart').reply(() => {
-  const items = store.getState().ecommerce.items
   const products = data.userCart.map(cartProduct => {
-    const product = items.find(p => p.itemId === cartProduct.productId)
+    const product = data.products.find(p => p.id === cartProduct.productId)
 
     // Other data
-   /* product[isInWishlist] = data.userWishlist.findIndex(p => p.productId === cartProduct.productId) > -1
-    
-    product[shippingDate] = randomDate(nextDay, nextWeek)
-    product[offers] = getRandomInt(1, 4)
-    product[discountPercentage] = getRandomInt(3, 20)*/
+    product.isInWishlist = data.userWishlist.findIndex(p => p.productId === cartProduct.productId) > -1
+    product.qty = cartProduct.qty
+    product.shippingDate = randomDate(nextDay, nextWeek)
+    product.offers = getRandomInt(1, 4)
+    product.discountPercentage = getRandomInt(3, 20)
 
     return product
   })
@@ -467,17 +476,15 @@ mock.onGet('/apps/ecommerce/cart').reply(() => {
 mock.onPost('/apps/ecommerce/cart').reply(config => {
   // Get product from post data
   const { productId } = JSON.parse(config.data)
-  /*const items = store.getState().ecommerce.items
-  const item = items.find(p => p.itemId === parseInt(productId))
-  console.log(item)
-  item['isInCart'] = true
-  console.log(item)*/
+
   const { length } = data.userCart
   let lastId = 0
   if (length) lastId = data.userCart[length - 1].i
+
   data.userCart.push({
     id: lastId + 1,
-    productId
+    productId,
+    qty: 1
   })
 
   return [201]
