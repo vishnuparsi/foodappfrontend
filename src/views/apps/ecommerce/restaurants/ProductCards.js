@@ -10,16 +10,17 @@ const ProductCards = props => {
   // ** Props
   const {
     store,
-    products,
     activeView,
     addToCart,
     dispatch,
     getProducts,
     getCartItems,
     addToWishlist,
-    deleteWishlistItem
+    deleteWishlistItem,
+    rating
   } = props
 
+  let {products} = props
   // ** Handle Move/Add to cart
   const handleCartBtn = (id, val) => {
     if (val === false) {
@@ -41,6 +42,11 @@ const ProductCards = props => {
 
   // ** Renders products
   const renderProducts = () => {
+    if (rating) {
+      //console.log(rating)
+      products = products.filter(restaurant => restaurant.rating === parseInt(rating))
+    }
+
     if (products.length) {
       return products.map(item => {
         const CartBtnTag = item.isInCart ? Link : 'button'

@@ -45,6 +45,12 @@ const Restaurants = () => {
     )
   }, [dispatch])
 
+  const [rating, setRating] = useState(0)
+
+  const handleChange = (event) => {
+  setRating(event.target.value)
+  }
+
   return (
     <Fragment>
       <Breadcrumbs breadCrumbTitle='Restaurants' breadCrumbParent='Order Food Online' breadCrumbActive='Restaurants' />
@@ -61,8 +67,9 @@ const Restaurants = () => {
         setSidebarOpen={setSidebarOpen}
         deleteCartItem={deleteCartItem}
         deleteWishlistItem={deleteWishlistItem}
+        rating = {rating}
       />
-     {/*<Sidebar sidebarOpen={sidebarOpen} />*/}
+    <Sidebar sidebarOpen={sidebarOpen} handleChange = {handleChange} />
     </Fragment>
   )
 }

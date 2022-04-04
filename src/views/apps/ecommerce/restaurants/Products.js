@@ -24,7 +24,8 @@ const ProductsPage = props => {
     getCartItems,
     deleteWishlistItem,
     deleteCartItem,
-    setSidebarOpen
+    setSidebarOpen,
+    rating
   } = props
 
   // ** Handles pagination
@@ -66,7 +67,7 @@ const ProductsPage = props => {
   }
 
   return (
-    <div className='content-detached'>
+    <div className='content-detached content-right'>
       <div className='content-body'>
         <ProductsHeader
           store={store}
@@ -96,6 +97,7 @@ const ProductsPage = props => {
               addToWishlist={addToWishlist}
               deleteCartItem={deleteCartItem}
               deleteWishlistItem={deleteWishlistItem}
+              rating={rating}
             />
             <Pagination className='d-flex justify-content-center'>
               <PaginationItem

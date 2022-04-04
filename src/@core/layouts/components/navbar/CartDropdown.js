@@ -90,7 +90,7 @@ const CartDropdown = () => {
                         onDecrement = {handleDecrement}
                       />
                     </div>
-                    <h5 className='cart-item-price'>${item.itemPrice * item.qty}</h5>
+                    <h5 className='cart-item-price'>₹{item.itemPrice * item.qty}</h5>
                   </Media>
                 </Media>
               )
@@ -99,7 +99,7 @@ const CartDropdown = () => {
           <li className='dropdown-menu-footer'>
             <div className='d-flex justify-content-between mb-1'>
               <h6 className='font-weight-bolder mb-0'>Total:</h6>
-              <h6 className='text-primary font-weight-bolder mb-0'>${Number(total.toFixed(2))}</h6>
+              <h6 className='text-primary font-weight-bolder mb-0'>₹{Number(total.toFixed(2))}</h6>
             </div>
             <Button.Ripple tag={Link} to='/apps/ecommerce/userLogin' color='primary' block onClick={toggle}>
               Checkout

@@ -1,8 +1,40 @@
-// ** Third Party Components
-import { PlusCircle } from 'react-feather'
-import { Form, Label, Input, Button, Card, CardHeader, CardTitle, CardBody, CardText, CustomInput } from 'reactstrap'
+import { Form, Label, Card, CardHeader, CardTitle, CardBody, CardText, CustomInput, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from 'reactstrap'
+import Cart from './Cart'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-const Payment = () => {
+const Payment = ({total}) => {
+const [amount, setAmount] = useState('')
+const handleSubmit = (e) => {
+  e.preventDefault()
+  total = total + 30
+  
+   const options = {
+      key: "rzp_test_aCeiKK2OL8zZI4",
+      key_secret: "tsl8Aua9efRurL7XI5hswsX8",
+      amount:  total * 100,
+      currency: "INR",
+      name: "Food Bite",
+      description:" for testing",
+      function (response) { 
+          alert(response.razorpay_payment_id)
+        },
+    prefill: {
+        name: "Aishwarya",
+        email: "sprash002@gmail.com",
+        contact: "6303442624"
+    },
+    notes: {
+        address: "note value"
+    },
+    theme: {
+        color: "skyblue"
+    }
+  }
+const rzp = new window.Razorpay(options)
+rzp.open()
+   
+  }
+
   return (
     <Form
       className='list-view product-checkout'
@@ -17,54 +49,91 @@ const Payment = () => {
             <CardText className='text-muted mt-25'>Be sure to click on correct payment option</CardText>
           </CardHeader>
           <CardBody>
-            {/*<h6 className='card-holder-name my-75'>John Doe</h6>
-            <CustomInput
-              id='card'
-              type='radio'
-              defaultChecked
-              label='Indian Debit Card 12XX XXXX XXXX 0000'
-              name='paymentMethod'
-            />
-            <div className='customer-cvv mt-1'>
-              <div className='form-inline'>
-                <Label className='mb-50' for='card-holder-cvv'>
-                  Enter CVV:
-                </Label>
-                <Input className='input-cvv ml-sm-75 ml-0 mb-50' id='card-holder-cvv' />
-                <Button className='btn-cvv ml-0 ml-sm-1 mb-50' color='primary'>
-                  Continue
-                </Button>
-              </div>
-    </div>*/}
-            <hr className='my-2' />
+
             <ul className='other-payment-options list-unstyled'>
-              <li className='py-50'>
-                <CustomInput type='radio' label='Credit / Debit / ATM Card' name='paymentMethod' id='payment-card' />
+              <li>
+            <button className="btn btn-info" onClick={ handleSubmit }>Online Payment</button>
+            <br></br>
+            </li>
+           <view style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+           </view>
+           <li>
+             <br>
+             </br>
+           <button className="btn btn-info" >
+         <Link to = '/apps/ecommerce/PaymentSucess'>
+          Cash on Delivery
+          </Link>
+          </button>
+          </li>
+           <li className='py-50'>
               </li>
-              <li className='py-50'>
-                <CustomInput type='radio' label='Net Banking' name='paymentMethod' id='payment-net-banking' />
-              </li>
-              {/*<li className='py-50'>
-                <CustomInput type='radio' label='EMI (Easy Installment)' name='paymentMethod' id='payment-emi' />
-  </li>*/}
-              <li className='py-50'>
-                <CustomInput type='radio' label='Cash On Delivery' name='paymentMethod' id='payment-cod' />
-              </li>
-              <li className='py-50'>
-              <Button.Ripple tag = {Link} to = '/apps/ecommerce/paymentSucess' className='btn-cvv ml-0 ml-sm-1 mb-50' color='primary'>Continue</Button.Ripple>
-              </li>
+              <div className='demo-inline-spacing'>
+      <div className='basic-modal'>
+       
+      </div>
+      </div>
+            
+
+    {/* <GooglePayButton
+        environment="TEST"
+        paymentRequest={{
+          apiVersion: 2,
+          apiVersionMinor: 0,
+          allowedPaymentMethods: [
+            {
+              type: 'CARD',
+              parameters: {
+                allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                allowedCardNetworks: ['MASTERCARD', 'VISA']
+              },
+              tokenizationSpecification: {
+                type: 'PAYMENT_GATEWAY',
+                parameters: {
+                  gateway: 'example',
+                  gatewayMerchantId: 'exampleGatewayMerchantId'
+                }
+              }
+            }
+          ],
+          merchantInfo: {
+            merchantId: '12345678901234567890',
+            merchantName: ''
+          },
+          transactionInfo: {
+            totalPriceStatus: 'FINAL',
+            totalPriceLabel: 'Total',
+            totalPrice: '1',
+            currencyCode: 'INR',
+            countryCode: 'IN'
+          },
+          shippingAddressRequired: true,
+          callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION']  
+        }}
+        onLoadPaymentData={paymentRequest => {
+          console.log('Success', paymentRequest)
+        }}
+        onPaymentAuthorized={paymentData => {
+            console.log('Payment Authorised Success', paymentData)
+            return { transactionState: 'SUCCESS'}
+          }
+        }
+        onPaymentDataChanged={paymentData => {
+            console.log('On Payment Data Changed', paymentData)
+            return { }
+          }
+        }
+        existingPaymentMethodRequired='false'
+        buttonColor='black'
+        buttonType='Buy'
+      /> */}
+              
             </ul>
-            {/*<hr className='my-2' />
-            <div className='gift-card mb-25'>
-              <CardText>
-                <PlusCircle className='mr-50' size={21} />
-                <span className='align-middle'>Add Gift Card</span>
-              </CardText>
-    </div>*/}
+            
           </CardBody>
         </Card>
       </div>
-      {/*<div className='amount-payable checkout-options'>
+      <div className='amount-payable checkout-options'>
         <Card>
           <CardHeader>
             <CardTitle tag='h4'>Price Details</CardTitle>
@@ -74,7 +143,7 @@ const Payment = () => {
               <li className='price-detail'>
                 <div className='details-title'>Price of 3 items</div>
                 <div className='detail-amt'>
-                  <strong>₹699.30</strong>
+                  <strong>₹{total + 30}</strong>
                 </div>
               </li>
               <li className='price-detail'>
@@ -86,14 +155,15 @@ const Payment = () => {
             <ul className='list-unstyled price-details'>
               <li className='price-detail'>
                 <div className='details-title'>Amount Payable</div>
-                <div className='detail-amt font-weight-bolder'>₹699.30</div>
+                <div className='detail-amt font-weight-bolder'>₹{total + 30}</div>
               </li>
             </ul>
           </CardBody>
         </Card>
-      </div>*/}
+      </div>
     </Form>
   )
 }
+
 
 export default Payment

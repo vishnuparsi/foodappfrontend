@@ -47,11 +47,11 @@ const UserDropdown = () => {
       </DropdownToggle>
       <DropdownMenu right>
 
-        {/*<DropdownItem tag={Link} to='/pages/profile'>
+        <DropdownItem tag={Link} to='/apps/ecommerce/profile'>
           <User size={14} className='mr-75' />
           <span className='align-middle'>Profile</span>
         </DropdownItem>
-        <DropdownItem tag={Link} to='/apps/email'>
+        {/*<DropdownItem tag={Link} to='/apps/email'>
           <Mail size={14} className='mr-75' />
           <span className='align-middle'>Inbox</span>
         </DropdownItem>

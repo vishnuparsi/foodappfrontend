@@ -33,6 +33,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state, items: state.items.map(item => { return item.itemId === action.productId ? { ...item, isInCart:true} : item })}
     case 'GET_PRODUCT':
       return { ...state, productDetail: action.data.product }
+    case 'GET_ORDERS':
+      return { ...state, orders: action.data, params: action.params, totalOrders: action.data.length } 
     case 'ADJUST_QUANTITY':
       return {...state,
         cart: state.cart.map(item => { 
