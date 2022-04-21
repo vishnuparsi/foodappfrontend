@@ -133,7 +133,7 @@ rzp.open()
           </CardBody>
         </Card>
       </div>
-      <div className='amount-payable checkout-options'>
+      {/* <div className='amount-payable checkout-options'>
         <Card>
           <CardHeader>
             <CardTitle tag='h4'>Price Details</CardTitle>
@@ -160,7 +160,7 @@ rzp.open()
             </ul>
           </CardBody>
         </Card>
-      </div>
+      </div> */}
     </Form>
   )
 }
