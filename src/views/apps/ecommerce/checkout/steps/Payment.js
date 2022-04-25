@@ -61,7 +61,7 @@ rzp.open()
              <br>
              </br>
            <button className="btn btn-info" >
-         <Link to = '/apps/ecommerce/PaymentSucess'>
+         <Link to = '/apps/ecommerce/PaymentSuccess'>
           Cash on Delivery
           </Link>
           </button>
