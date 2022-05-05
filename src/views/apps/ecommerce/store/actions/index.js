@@ -151,6 +151,28 @@ export const addToWishlist = id => {
   }
 }
 
+export const getOrders = params => {
+  return dispatch => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${useJwt.getToken()}`
+    const authAxios = axios.create({
+      baseURL: baseApiUrl
+    })
+    const searchWord = params.q
+    console.log(searchWord)
+    if (searchWord === '') {
+      return authAxios.get('orderDetails/list', { params}).then(res => {
+        console.log(res)
+        dispatch({ type: 'GET_ORDERS', data: res.data, params })
+      })
+    } else {
+      return authAxios.get(`restaurants/search/${searchWord}`, { params}).then(res => {
+        console.log(res)
+        dispatch({ type: 'GET_ORDERS', data: res.data, params })
+      })
+    }
+  }
+}
+
 // ** DELETE Cart Items
 export const deleteCartItem = id => {
   return dispatch => {

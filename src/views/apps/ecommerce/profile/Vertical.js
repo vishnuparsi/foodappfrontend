@@ -1,8 +1,10 @@
 import { useRef, useState } from 'react'
 import Wizard from '@components/wizard'
-import Address from './Address'
 import { FileText, User, MapPin, Link, CreditCard } from 'react-feather'
 import PersonalInfo from './PersonalInfo'
+import OrderHistory from '../orderhistory'
+import Address from '../myaddress'
+
 const Vertical = () => {
   const [stepper, setStepper] = useState(null)
   const ref = useRef(null)
@@ -26,8 +28,8 @@ const Vertical = () => {
       id: 'step-orders',
       title: 'My Orders ',
       subtitle: 'orders Details',
-      icon: <CreditCard size={18} />,
-      content: <Address stepper={stepper} type='modern-vertical' />
+      icon: <FileText size={18} />,
+      content: <OrderHistory stepper={stepper} type='modern-vertical' />
     }
    
   ]

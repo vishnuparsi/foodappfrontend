@@ -17,13 +17,20 @@ import {
   CustomInput
 } from 'reactstrap'
 
+
 const renderModal = () => {
+
+const history = useHistory()
+const submitHandler = () => {
+ history.push("/apps/ecommerce/restaurants")
+ location.reload()
+}
     return ( 
    <center>
     <Card id='card'>
     <br/>
         <h4 id='h4'>Order Received</h4>
-      <Form >
+      <Form  onSubmit = {submitHandler}>
           <FormGroup>
             <hr/>
             <img  src={img1} alt="no image" className="img"/><br/>
@@ -35,7 +42,7 @@ const renderModal = () => {
        <p id='next'>Place your next order</p>
        </td>
      <td>         
-       <Button.Ripple tag={Link} to= '/apps/ecommerce/restaurants'color='primary'>
+       <Button.Ripple color='primary' type = 'submit'>
            Home
        </Button.Ripple>
       </td>

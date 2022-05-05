@@ -21,8 +21,7 @@ const ProductsPage = props => {
         <ProductsHeader
           store={store}
         />
-        <div
-          className={classnames('body-content-overlay', {
+        <div className={classnames('body-content-overlay', {
             show: sidebarOpen
           })}
           onClick={() => setSidebarOpen(false)}

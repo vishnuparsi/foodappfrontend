@@ -87,7 +87,7 @@ const Address = props => {
             </Col>
             <Col md='6' sm='12'>
               <FormGroup className='mb-2'>
-                <Label for='checkout-number'>Number:</Label>
+                <Label for='checkout-number'>Phone Number:</Label>
                 <Input
                   type='number'
                   name='checkout-number'

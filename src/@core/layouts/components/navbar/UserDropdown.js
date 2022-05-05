@@ -81,10 +81,10 @@ const UserDropdown = () => {
           <span className='align-middle'>FAQ</span>
   </DropdownItem>*/}
 
-        <DropdownItem tag={Link} to='/login' onClick={() => dispatch(handleLogout())}>
+        {/* <DropdownItem tag={Link} to='/login' onClick={() => dispatch(handleLogout())}>
           <Power size={14} className='mr-75' />
           <span className='align-middle'>Logout</span>
-        </DropdownItem>
+        </DropdownItem> */}
       </DropdownMenu>
     </UncontrolledDropdown>
   )

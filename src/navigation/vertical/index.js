@@ -10,5 +10,5 @@ import chartsAndMaps from './charts-maps'
 
 // ** Merge & Export
 export default [...apps] 
-//...uiElements, ...forms, ...tables, ...chartsAndMaps, ...others
+// ...uiElements, ...forms, ...tables, ...chartsAndMaps, ...others
 

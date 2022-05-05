@@ -184,6 +184,11 @@ const AppRoutes = [
     component: lazy(() => import('../../views/apps/ecommerce/myaddress')) 
   },
   {
+    path: '/apps/ecommerce/orderhistory',
+    className: 'ecommerce-application',
+    component: lazy(() => import('../../views/apps/ecommerce/orderhistory'))
+  },
+  {
     path: '/apps/ecommerce/pickupdrop',
     className: 'ecommerce-application',
     component: lazy(() => import('../../views/apps/ecommerce/pickupdrop'))

@@ -5,19 +5,25 @@ import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 import { Star, ShoppingCart, Heart } from 'react-feather'
 import { Card, CardBody, CardText, Button, Badge } from 'reactstrap'
+import { useSelector } from 'react-redux'
+
 
 const ProductCards = props => {
   // ** Props
+  let {products} = props
   const {
     store,
-    products,
     activeView,
     addToCart,
     dispatch,
     getProducts,
     getCartItems
   } = props
+  const info = useSelector(state => state)
+ const userId = info.auth.userData.userId
 
+products = products.filter(p => p.order.userId === userId)
+ console.log(userId)
   // ** Handle Move/Add to cart
   const handleCartBtn = (id, val) => {
     if (val === false) {
@@ -34,10 +40,10 @@ const ProductCards = props => {
         const CartBtnTag = item.isInCart ? Link : 'button'
 
         return (
-          <Card className='ecommerce-card' key={item.paymentId}>
+          <Card className='ecommerce-card' key={item.orderId}>
             <div className='item-img text-center mx-auto'>
               {/* <Link to={`/apps/ecommerce/product-detail/${item.slug}`}> */}
-                <img className='img-fluid card-img-top' src={require(`@src/assets/images/orderhistory/${item.paymentId}.jpg`).default} alt={item.orderId} />
+                <img className='img-fluid card-img-top' src={require(`@src/assets/images/orderhistory/${item.orderId}.jpg`).default} alt={item.orderId} />
               {/* </Link> */}
             </div>
             <CardBody>
@@ -57,16 +63,16 @@ const ProductCards = props => {
                       )
                     })}*/}
              <strong>Order Id :  </strong>
-             <CardText  className='item-description'>{item.paymentId}</CardText>
+             <CardText  className='item-description'>{item.orderId}</CardText>
             
              <strong>Amount : </strong>
-              <CardText className='item-description'>₹{item.amount}</CardText>
+              <CardText className='item-description'>₹{item.quantity * item.item.itemPrice}</CardText>
               
-             <strong>Date : </strong>
-              <CardText className='item-description'>{item.paymentDate}</CardText>
+             <strong>Item Name :</strong>
+              <CardText className='item-description'>{item.item.itemName}</CardText>
               
-             <strong>PaymentMethod : </strong>
-              <CardText className='item-description'>{item.paymentMethod}</CardText>
+             <strong>Quantity :</strong>
+              <CardText className='item-description'>{item.quantity}</CardText>
               
               {/* <b><CardText className='item-description'>contact:&nbsp;+91-{item.restPhNo}</CardText></b> */}
             </CardBody>

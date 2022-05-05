@@ -7,6 +7,7 @@ const rootReducer = combineReducers({
 
 
 const initialState = {
+  orders: [],
   products: [],
   restaurants: [],
   items: [],
@@ -40,6 +41,8 @@ const ecommerceReducer = (state = initialState, action) => {
       return { ...state }
     case 'GET_PERSONALINFO':
        return {  ...state, users: action.data.users}
+    case 'GET_ORDERS':
+       return { ...state, orders: action.data, params: action.params, totalOrders: action.data.length }  
     case 'ADD_TO_CART':
       return { ...state, items: state.items.map(item => { return item.itemId === action.productId ? { ...item, isInCart:true} : item })}
     case 'GET_PRODUCT':

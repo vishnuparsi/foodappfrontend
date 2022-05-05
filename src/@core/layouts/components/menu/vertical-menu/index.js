@@ -48,6 +48,7 @@ const Sidebar = props => {
   }
 
   return (
+  
     <Fragment>
       <div
         className={classnames('main-menu menu-fixed menu-accordion menu-shadow', {
