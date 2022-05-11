@@ -3,6 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
+      - apt update
       - apt install pass
   pre_build:
     commands:
