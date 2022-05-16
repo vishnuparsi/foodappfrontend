@@ -76,24 +76,24 @@ export default [
         icon: <Circle size={12} />,
         navLink: '/apps/ecommerce/categories'
       },
-      {
+      /*{
         id: 'addRestaurant',
         title: 'Add Restaurant',
         icon: <Circle size={12} />,
         navLink: '/apps/ecommerce/addRestaurant'
-      },
-      /*{
+      },*/
+     /* {
         id: 'detail',
         title: 'Details',
         icon: <Circle size={12} />,
         navLink: '/apps/ecommerce/product-detail'
-      },*/
-      {
+      }*/
+     /* {
         id: 'wishList',
         title: 'Wish List',
         icon: <Circle size={12} />,
         navLink: '/apps/ecommerce/wishlist'
-      },
+      },*/
       {
         id: 'checkout',
         title: 'Checkout',
@@ -102,7 +102,7 @@ export default [
       }
     ]
   }
-  /*{
+  /*{ 
     id: 'users',
     title: 'User',
     icon: <User size={20} />,

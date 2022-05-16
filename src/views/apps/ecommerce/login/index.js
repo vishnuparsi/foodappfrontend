@@ -35,6 +35,7 @@ const Login = () => {
     const history = useHistory()
     const [userData, setUserData] = useState()
     const dispatch = useDispatch()
+const [incorrectPassword, setIncorrectPassword] = useState(false)
     
 const submitHandler = (e) => {
     e.preventDefault()
@@ -52,6 +53,10 @@ const submitHandler = (e) => {
         history.push("/apps/ecommerce/checkout")
     }).catch((err) => {
         console.log(err)
+
+   if (err.response.status === 500) {
+        setIncorrectPassword(true)
+      }
     })
        
 }
@@ -82,6 +87,7 @@ useEffect(() => {
             <div></div>
         
         )}   
+ {incorrectPassword && <b style={{ color: "red"}}> &nbsp;&nbsp; Incorrect password</b>}
 
         <CardBody>
             <Form onSubmit={submitHandler}>

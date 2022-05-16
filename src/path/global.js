@@ -1,5 +1,6 @@
-const GlobalVariable = Object.freeze({
-    BASE_API_URL:'http://localhost:8080/'
-})
+const GlobalVariable = {
+   BASE_API_URL: process.env.REACT_APP_API_URL
+
+}
 
 export default GlobalVariable
