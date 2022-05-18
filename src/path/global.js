@@ -3,4 +3,5 @@ const GlobalVariable = {
 
 }
 
+
 export default GlobalVariable
