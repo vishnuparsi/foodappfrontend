@@ -70,7 +70,7 @@ const formLogin = () => {
         })
        
         .catch(error => {
-          alert("Error :", error)
+          alert("Error : Please check the entered number", error)
         })
         
     } else {

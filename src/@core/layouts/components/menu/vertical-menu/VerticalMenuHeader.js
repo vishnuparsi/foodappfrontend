@@ -39,6 +39,11 @@ const VerticalMenuHeader = props => {
       )
     }
   }
+  const mystyle = {  
+    margin: "-10px",
+    width: "217px",
+    height: "185px"
+  }
 
   return (
     <div className='navbar-header'>
@@ -54,9 +59,20 @@ const VerticalMenuHeader = props => {
         <li className='nav-item nav-toggle'>
           <div className='nav-link modern-nav-toggle cursor-pointer'>
             <Toggler />
-            <X onClick={() => setMenuVisibility(false)} className='toggle-icon icon-x d-block d-xl-none' size={20} />
+            <X onClick={() => setMenuVisibility(false)} className='toggle-icon icon-x d-block d-xl-none' size={5} />
           </div>
         </li>
+         <br/><br/><br/><br/><br/><br/>
+        <li className='nav-item nav-toggle'>
+          <div className='nav-link modern-nav-toggle cursor-pointer'>
+           
+        <X onClick={() => setMenuVisibility(true)} className='toggle-icon icon-x d-block d-xl-none' size={5} />
+      
+        <img style={mystyle} src={require(`@src/assets/images/advertisements/9.gif`).default} />
+        <br/><br/><br/>
+        <img style={mystyle} src={require(`@src/assets/images/advertisements/15.gif`).default} />
+          </div>
+        </li>  
       </ul>
     </div>
   )
